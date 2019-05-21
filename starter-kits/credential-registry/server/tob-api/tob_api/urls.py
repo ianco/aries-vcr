@@ -18,4 +18,5 @@ urlpatterns = [
     path("api/v2/", include("api_v2.urls")),
     path("health", views.health),
     path("hooks/", include("icat_hooks.urls")),
+    path("agentcb/", include("icat_cbs.urls")),
 ]
