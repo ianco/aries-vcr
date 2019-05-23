@@ -118,12 +118,9 @@ def store_credential_int(request_data):
     logger.info(credential_data)
 
     credential = Credential(credential_data)
-    credential_manager = CredentialManager(credential)
-    #credential_manager = CredentialManager(
-    #    credential, credential_request_metadata
-    #)
+    credential_manager = CredentialManager()
 
-    credential_wallet_id = credential_manager.process()
+    credential_wallet_id = credential_manager.process(credential)
 
     return Response({"success": True, "result": credential_wallet_id})
 
