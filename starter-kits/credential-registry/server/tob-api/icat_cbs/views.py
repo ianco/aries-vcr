@@ -18,17 +18,6 @@ TOPIC_GET_ACTIVE_MENU = "get-active-menu"
 TOPIC_PERFORM_MENU_ACTION = "perform-menu-action"
 
 
-class agentCallbackViewset(APIView):
-    permission_classes = [permissions.AllowAny,]
-    serializer_class = IndyAgentCallbackSerializer
-
-    def get_serializer_class(self):
-        return self.serializer_class
-
-    def post(self, request, *args, **kwargs):
-        return Response("")
-
-
 @api_view(['POST',])
 @permission_classes((permissions.AllowAny, ))
 def agent_callback(request, topic):
@@ -64,26 +53,49 @@ def handle_connections(state, message):
 
 def handle_credentials(state, message):
     """
-    Receives notification of a credential processing event:
+    Receives notification of a credential processing event.
+
+    For example, for a greenlight registration credential:
         message = {
-            "connection_id": "...",
-            "credential_definition_id": "...",
-            "credential_exchange_id": "...",
-            "credential_id": "...",
-            "credential_offer": {...},
-            "credential_request": {...},
-            "credential_request_metadata": {...},
+            "connection_id": "12345",
+            "credential_definition_id": "6qnvgJtqwK44D8LFYnV5Yf:3:CL:25:tag",
+            "credential_exchange_id": "666",
+            "credential_id": "67890",
+            "credential_offer": {},
+            "credential_request": {},
+            "credential_request_metadata": {},
             "credential": {
-                "referent": "same as credential_id", 
-                "attrs": {"degree": "Maths", "age": "24", "date": "2018-05-28", "name": "Alice Smith"}, 
-                "schema_id": "same as schema_id", 
-                "cred_def_id": "same as credential_definition_id", 
+                "referent": "67892", 
+                "values": 
+                    {
+                        "address_line_1": "2230 Holdom Avenue",
+                        "address_line_2": "",
+                        "addressee": "Ms. Brenda J Strachan",
+                        "city": "Surrey",
+                        "corp_num": "FM0243624",
+                        "country": "CA",
+                        "entity_name_effective": "2007-08-30",
+                        "entity_status": "Active",
+                        "entity_status_effective": "2007-08-30",
+                        "entity_type": "BC Company",
+                        "legal_name": "LOEFFLER PIZZA PLACE LIMITED",
+                        "postal_code": "V3T 4Y5",
+                        "province": "BC",
+                        "reason_description": "Filing:REGST",
+                        "registration_date": "2007-08-30"
+                    }, 
+                "schema_id": "6qnvgJtqwK44D8LFYnV5Yf:2:Registered Corporation:1.0.3", 
+                "cred_def_id": "6qnvgJtqwK44D8LFYnV5Yf:3:CL:25:tag", 
                 "rev_reg_id": null, 
-                "cred_rev_id": null
+                "rev_reg": null, 
+                "witness": "Ian",
+                "cred_rev_id": null,
+                "signature": "ian costanzo, honest",
+                "signature_correctness_proof": "honest"
             },
             "initiator": "...",
             "schema_id": "...",
-            "state": "...",
+            "state": "stored",
             "thread_id": "..."
         }
     """

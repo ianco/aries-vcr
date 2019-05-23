@@ -117,12 +117,12 @@ def store_credential_int(request_data):
 
     logger.info(credential_data)
 
-    credential = Credential(credential_data)
+    credential = Credential(credential_data, wallet_id=credential_data["referent"])
     credential_manager = CredentialManager()
 
     credential_wallet_id = credential_manager.process(credential)
 
-    return Response({"success": True, "result": credential_wallet_id})
+    return Response({"success": True, "result": credential_data["referent"]})
 
 
 @api_view(["POST"])

@@ -96,7 +96,8 @@ class Credential(object):
     def __getattr__(self, name: str):
         """Make claim values accessible on class instance"""
         try:
-            claim_value = self.raw["values"][name]["raw"]
+            #claim_value = self.raw["values"][name]["raw"]
+            claim_value = self.raw["values"][name]
             return claim_value
         except KeyError:
             raise AttributeError(
