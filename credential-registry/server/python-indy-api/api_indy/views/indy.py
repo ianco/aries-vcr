@@ -106,15 +106,22 @@ def store_credential(request, *args, **kwargs):
     """
     logger.warn(">>> Store Credential")
 
-    credential_data = request.data["credential_data"]
-    credential_request_metadata = request.data["credential_request_metadata"]
+    return store_credential_int(request.data)
+
+
+def store_credential_int(request_data):
+    print(">>> Store Credential Internal")
+
+    credential_data = request_data["credential_data"]
+    credential_request_metadata = request_data["credential_request_metadata"]
 
     logger.info(credential_data)
 
     credential = Credential(credential_data)
-    credential_manager = CredentialManager(
-        credential, credential_request_metadata
-    )
+    credential_manager = CredentialManager(credential)
+    #credential_manager = CredentialManager(
+    #    credential, credential_request_metadata
+    #)
 
     credential_wallet_id = credential_manager.process()
 

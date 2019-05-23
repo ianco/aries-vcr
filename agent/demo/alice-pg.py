@@ -49,6 +49,19 @@ class alice_webhooks(webhooks):
             assert resp.status_code == 200
             return ""
 
+        elif state == 'stored':
+            print("Stored credential in wallet")
+            resp = requests.get(admin_url + '/credential/' + message['credential_id'])
+            assert resp.status_code == 200
+            print("Stored credential:")
+            print(resp.text)
+            print("credential_id", message['credential_id'])
+            print("credential_definition_id", message['credential_definition_id'])
+            print("schema_id", message['schema_id'])
+            print("credential_request_metadata", message['credential_request_metadata'])
+
+            return ""
+
         return ""
 
     def handle_presentations(self, state, message):
