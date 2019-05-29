@@ -270,7 +270,7 @@ async def presentation_exchange_send_credential_presentation(request: web.BaseRe
         presentation_exchange_record, body
     )
 
-    await outbound_handler(presentation_message, connection_target)
+    await outbound_handler(context, presentation_message, connection_target)
     return web.json_response(presentation_exchange_record.serialize())
 
 
