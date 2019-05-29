@@ -217,7 +217,7 @@ async def presentation_exchange_send_request(request: web.BaseRequest):
         name, version, requested_attributes, requested_predicates, connection_id
     )
 
-    await outbound_handler(presentation_request_message, connection_target)
+    await outbound_handler(context, presentation_request_message, connection_target)
 
     return web.json_response(presentation_exchange_record.serialize())
 
