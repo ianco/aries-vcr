@@ -10,16 +10,18 @@ from marshmallow import fields
 
 from ....admin.service import AdminService
 from ....config.injection_context import InjectionContext
-from ..messages.connection_invitation import ConnectionInvitation
-from ..messages.connection_request import ConnectionRequest
-from ....models.base import BaseModel, BaseModelSchema
 from ....storage.base import BaseStorage
 from ....storage.record import StorageRecord
+
+from ...models.base import BaseModel, BaseModelSchema
 from ...util import time_now
+
+from ..messages.connection_invitation import ConnectionInvitation
+from ..messages.connection_request import ConnectionRequest
 
 
 class ConnectionRecord(BaseModel):
-    """Represents a single connection."""
+    """Represents a single pairwise connection."""
 
     class Meta:
         """ConnectionRecord metadata."""
@@ -65,7 +67,6 @@ class ConnectionRecord(BaseModel):
         request_id: str = None,
         state: str = None,
         routing_state: str = None,
-        direct_response: str = None,
         error_msg: str = None,
         created_at: str = None,
         updated_at: str = None,
@@ -82,7 +83,6 @@ class ConnectionRecord(BaseModel):
         self.request_id = request_id
         self.state = state or self.STATE_INIT
         self.routing_state = routing_state or self.ROUTING_STATE_NONE
-        self.direct_response = direct_response
         self.error_msg = error_msg
         self.created_at = created_at
         self.updated_at = updated_at
@@ -106,7 +106,6 @@ class ConnectionRecord(BaseModel):
         ret = self.tags
         ret.update(
             {
-                "direct_response": self.direct_response,
                 "error_msg": self.error_msg,
                 "their_label": self.their_label,
                 "created_at": self.created_at,
@@ -450,6 +449,11 @@ class ConnectionRecord(BaseModel):
         )
 
     @property
+    def is_active(self) -> bool:
+        """Accessor to check if the connection is active."""
+        return self.state == self.STATE_ACTIVE
+
+    @property
     def requires_routing(self) -> bool:
         """Accessor to check if routing actions are needed."""
         return self.routing_state in (
@@ -473,7 +477,6 @@ class ConnectionRecordSchema(BaseModelSchema):
         model_class = ConnectionRecord
 
     connection_id = fields.Str(required=False)
-    direct_response = fields.Str(required=False)
     my_did = fields.Str(required=False)
     my_router_did = fields.Str(required=False)
     their_did = fields.Str(required=False)
