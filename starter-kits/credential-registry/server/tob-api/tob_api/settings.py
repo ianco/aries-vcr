@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "django_filters",
     "tob_api",
     "api_v2",
+    "api_v3",
     "corsheaders",
     "rest_hooks",  # only required when using webhook subscriptions
     "icat_hooks",  # only required when using webhook subscriptions

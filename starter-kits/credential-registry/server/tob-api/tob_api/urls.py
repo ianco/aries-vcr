@@ -25,6 +25,7 @@ api_patterns = [
     path("", RedirectView.as_view(url="api/"), name="api-root"),
     path("api", RedirectView.as_view(url="api/"), name="api"),
     path("api/v2/", include("api_v2.urls"), name="api-v2"),
+    path("api/v3/", include("api_v3.urls"), name="api-v3"),
 ]
 
 urlpatterns = base_patterns + hook_patterns + api_patterns
