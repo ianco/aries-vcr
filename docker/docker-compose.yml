@@ -147,7 +147,7 @@ services:
       fi"
 
   vcr-agent:
-    image: agent
+    image: vcr-agent
     environment:
       - LEDGER_URL=${LEDGER_URL}
       - WALLET_TYPE=${WALLET_TYPE}
@@ -202,7 +202,7 @@ services:
         --admin '0.0.0.0' ${AGENT_ADMIN_PORT} \
         --${AGENT_ADMIN_MODE} \
         --label ${AGENT_NAME} \
-        --log-level 'error' \
+        --log-level 'debug' \
         --plugin indy_catalyst_issuer_registration",
       ]
 
