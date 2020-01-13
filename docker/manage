@@ -112,7 +112,7 @@ EOF
 # -----------------------------------------------------------------------------------------------------------------
 # Default Settings:
 # -----------------------------------------------------------------------------------------------------------------
-DEFAULT_CONTAINERS="wallet-db vcr-db vcr-solr vcr-api agent schema-spy vcr-web rabbitmq vcr-worker echo-app"
+DEFAULT_CONTAINERS="wallet-db vcr-db vcr-solr vcr-api vcr-agent schema-spy vcr-web rabbitmq vcr-worker echo-app"
 # -----------------------------------------------------------------------------------------------------------------
 # Functions:
 # -----------------------------------------------------------------------------------------------------------------
@@ -317,7 +317,7 @@ build-agent() {
   # agent
   #
   docker build -q \
-    -t 'agent' \
+    -t 'vcr-agent' \
     -f './agent/Dockerfile' './agent'
 
   # this is only required in Windows
@@ -325,7 +325,7 @@ build-agent() {
     echo -e "\nFixing file permissions in final agent image"
     docker build -q \
       --build-arg BASE_IMAGE='agent:latest' \
-      -t 'agent' \
+      -t 'vcr-agent' \
       -f './utils/Dockerfile.fixpermissions' './utils/'
   fi
 }
@@ -468,7 +468,7 @@ configureEnvironment() {
   export WEBHOOK_URL=${WEBHOOK_URL:-http://$DOCKERHOST:$API_HTTP_PORT}
   export HTTP_INTERFACE_PORT=8021
   export WS_INTERFACE_PORT=8023
-  export AGENT_NAME="agent"
+  export AGENT_NAME="vcr-agent"
   export AGENT_ENDPOINT=${AGENT_ENDPOINT:-http://$DOCKERHOST:$HTTP_INTERFACE_PORT}
   export AGENT_ADMIN_MODE="admin-insecure-mode"
   if [ ! -z "${AGENT_ADMIN_API_KEY}" ]; then
