@@ -1,5 +1,6 @@
 import logging
 from typing import Sequence, Tuple
+import json
 
 from api.v2.auth import create_issuer_user
 from api.v2.models.CredentialType import CredentialType
@@ -54,6 +55,7 @@ class IssuerManager:
         """
         Perform issuer registration, updating the related database models.
         """
+        print(json.dumps(spec))
         issuer_registration = spec["issuer_registration"]
         issuer = issuer_registration["issuer"]
         self.update_user(issuer)
