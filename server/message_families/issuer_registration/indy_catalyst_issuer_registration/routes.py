@@ -156,6 +156,7 @@ async def issuer_registration_send(request: web.BaseRequest):
     context: AdminRequestContext = request["context"]
     outbound_handler = request["outbound_message_router"]
     body = await request.json()
+    session = await context.session()
 
     connection_id = body.get("connection_id")
     issuer_registration = body.get("issuer_registration")
@@ -163,7 +164,7 @@ async def issuer_registration_send(request: web.BaseRequest):
     issuer_registration_manager = IssuerRegistrationManager(context)
 
     try:
-        connection = await ConnRecord.retrieve_by_id(context, connection_id)
+        connection = await ConnRecord.retrieve_by_id(session, connection_id)
     except StorageNotFoundError:
         return web.BaseResponse(text="Connection not found.", status=418)
 
