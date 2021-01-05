@@ -5,6 +5,7 @@ from aiohttp_apispec import docs, request_schema
 
 from marshmallow import fields, Schema
 
+from aries_cloudagent.admin.request_context import AdminRequestContext
 from aries_cloudagent.connections.models.conn_record import ConnRecord
 from aries_cloudagent.storage.error import StorageNotFoundError
 
@@ -152,7 +153,7 @@ async def issuer_registration_send(request: web.BaseRequest):
         request: aiohttp request object
 
     """
-    context = request.app["request_context"]
+    context: AdminRequestContext = request["context"]
     outbound_handler = request.app["outbound_message_router"]
     body = await request.json()
 
