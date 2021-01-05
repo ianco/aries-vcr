@@ -5,7 +5,7 @@ from aiohttp_apispec import docs, request_schema
 
 from marshmallow import fields, Schema
 
-from aries_cloudagent.connections.models.connection_record import ConnectionRecord
+from aries_cloudagent.connections.models.conn_record import ConnRecord
 from aries_cloudagent.storage.error import StorageNotFoundError
 
 from .manager import IssuerRegistrationManager
@@ -162,7 +162,7 @@ async def issuer_registration_send(request: web.BaseRequest):
     issuer_registration_manager = IssuerRegistrationManager(context)
 
     try:
-        connection = await ConnectionRecord.retrieve_by_id(context, connection_id)
+        connection = await ConnRecord.retrieve_by_id(context, connection_id)
     except StorageNotFoundError:
         return web.BaseResponse(text="Connection not found.", status=418)
 
