@@ -154,7 +154,7 @@ async def issuer_registration_send(request: web.BaseRequest):
 
     """
     context: AdminRequestContext = request["context"]
-    outbound_handler = request.app["outbound_message_router"]
+    outbound_handler = request["outbound_message_router"]
     body = await request.json()
 
     connection_id = body.get("connection_id")
