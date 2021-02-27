@@ -146,6 +146,9 @@ def handle_credentials(state, message):
     LOGGER.debug(
         f'Credential: state="{state}" credential_exchange_id="{credential_exchange_id}"'
     )
+    print(
+        f'Credential: state="{state}" credential_exchange_id="{credential_exchange_id}"'
+    )
     response_data = {}
 
     try:
@@ -158,6 +161,7 @@ def handle_credentials(state, message):
             }
 
         elif state == "credential_received":
+            start_time = time.perf_counter()
             raw_credential = message["raw_credential"]
 
             # You can include this exception to test error reporting
@@ -245,6 +249,9 @@ def handle_credentials(state, message):
                 "success": True,
                 "details": f"Received credential with id {ret_credential_id}",
             }
+
+            end_time = time.perf_counter()
+            print("Cred", credential_exchange_id, "processing time:", end_time - start_time)
 
         # TODO other scenarios
         elif state == "stored":
