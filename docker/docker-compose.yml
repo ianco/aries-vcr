@@ -224,8 +224,10 @@ services:
         --auto-respond-credential-proposal \
         --auto-respond-credential-offer \
         --auto-respond-credential-request \
+        --auto-store-credential \
         --auto-verify-presentation \
         --exch-use-unencrypted-tags \
+        --preserve-exchange-records \
         --wallet-type 'indy' \
         --wallet-name 'icat_agent_wallet' \
         --wallet-key '${WALLET_ENCRYPTION_KEY}' \

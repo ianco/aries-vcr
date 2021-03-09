@@ -211,7 +211,7 @@ def handle_credentials(state, message):
                     existing = False
 
             # Instruct the agent to store the credential in wallet
-            if not existing:
+            if PROCESS_INBOUND_CREDENTIALS and not existing:
                 # post with retry - if returned status is 503 unavailable retry a few times
                 resp = call_agent_with_retry(
                     f"{settings.AGENT_ADMIN_URL}/issue-credential/records"
