@@ -200,11 +200,11 @@ services:
         aca-py provision \
         --endpoint ${AGENT_ENDPOINT} \
         --genesis-url '${LEDGER_URL}/genesis' \
-        --wallet-type 'indy' \
+        --wallet-type 'askar' \
         --wallet-name 'icat_agent_wallet' \
         --wallet-key '${WALLET_ENCRYPTION_KEY}' \
         --wallet-storage-type '${WALLET_TYPE}' \
-        --wallet-storage-config '{\"url\":\"${POSTGRESQL_WALLET_HOST}:${POSTGRESQL_WALLET_PORT}\",\"max_connections\":5}' \
+        --wallet-storage-config '{\"url\":\"${POSTGRESQL_WALLET_HOST}:${POSTGRESQL_WALLET_PORT}\",\"max_connections\":64}' \
         --wallet-storage-creds '{\"account\":\"${POSTGRESQL_USER}\",\"password\":\"${POSTGRESQL_PASSWORD}\",\"admin_account\":\"postgres\",\"admin_password\":\"${POSTGRESQL_ADMIN_PASSWORD}\"}' \
         --seed '${INDY_WALLET_SEED}' \
         --log-level 'error'; \
@@ -224,15 +224,14 @@ services:
         --auto-respond-credential-proposal \
         --auto-respond-credential-offer \
         --auto-respond-credential-request \
-        --auto-store-credential \
         --auto-verify-presentation \
         --exch-use-unencrypted-tags \
         --preserve-exchange-records \
-        --wallet-type 'indy' \
+        --wallet-type 'askar' \
         --wallet-name 'icat_agent_wallet' \
         --wallet-key '${WALLET_ENCRYPTION_KEY}' \
         --wallet-storage-type '${WALLET_TYPE}' \
-        --wallet-storage-config '{\"url\":\"${POSTGRESQL_WALLET_HOST}:${POSTGRESQL_WALLET_PORT}\",\"max_connections\":5}' \
+        --wallet-storage-config '{\"url\":\"${POSTGRESQL_WALLET_HOST}:${POSTGRESQL_WALLET_PORT}\",\"max_connections\":64}' \
         --wallet-storage-creds '{\"account\":\"${POSTGRESQL_USER}\",\"password\":\"${POSTGRESQL_PASSWORD}\",\"admin_account\":\"postgres\",\"admin_password\":\"${POSTGRESQL_ADMIN_PASSWORD}\"}' \
         --seed '${INDY_WALLET_SEED}' \
         --admin '0.0.0.0' ${AGENT_ADMIN_PORT} \
